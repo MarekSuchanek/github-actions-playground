@@ -1,0 +1,24 @@
+name: Build
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  package:
+    name: Package (ZIP)
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v6
+
+    - name: Prepare artefacts
+      run: |
+        make dist
+    
+    - name: Upload ZIP archive
+      uses: actions/upload-artifact@v7
+      with:
+        name: dist
+        path: dist
